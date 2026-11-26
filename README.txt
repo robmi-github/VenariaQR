@@ -1,0 +1,1 @@
+ATTENZIONE: per funzionare completamente offline devi scaricare html5-qrcode.min.js e copiarlo nella cartella del progetto.
