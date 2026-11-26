@@ -9,7 +9,53 @@ let validCount=parseInt(localStorage.getItem("validCount")||"0");
 countSpan.textContent=validCount;
 
 function save(){localStorage.setItem("validCount",validCount);}
-function beep(ok){const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator();o.frequency.value=ok?1200:250;o.connect(c.destination);o.start();o.stop(c.currentTime+(ok?0.15:0.45));}
+
+
+let audioCtx = null;
+
+async function unlockAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if (audioCtx.state === "suspended") {
+    await audioCtx.resume();
+  }
+}
+
+function beep(ok) {
+  if (!audioCtx) return;
+
+  const oscillator = audioCtx.createOscillator();
+  const gainNode = audioCtx.createGain();
+
+  oscillator.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
+
+  oscillator.type = "sine";
+
+  const frequency = ok ? 1200 : 350;
+  const duration = ok ? 0.20 : 0.50;
+
+  oscillator.frequency.setValueAtTime(
+    frequency,
+    audioCtx.currentTime
+  );
+
+  gainNode.gain.setValueAtTime(
+    0.5,
+    audioCtx.currentTime
+  );
+
+  gainNode.gain.exponentialRampToValueAtTime(
+    0.001,
+    audioCtx.currentTime + duration
+  );
+
+  oscillator.start();
+  oscillator.stop(audioCtx.currentTime + duration);
+}
+
 
 async function stopScanner(){
  if(html5QrCode && scanning){
