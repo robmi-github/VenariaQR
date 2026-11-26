@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Validatore Venaria</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body{font-family:Arial,sans-serif;margin:0;text-align:center;background:#f4f4f4}
+header{background:#003366;color:#fff;padding:12px}
+#reader{max-width:520px;margin:15px auto}
+#result{margin:15px;padding:25px;border-radius:12px;font-size:28px;font-weight:bold;background:#ddd}
+.valid{background:#28a745;color:#fff}
+.invalid{background:#dc3545;color:#fff}
+button{padding:12px 18px;margin:8px;border:none;border-radius:8px;background:#003366;color:white;font-size:16px}
+.counter{font-size:24px;margin:12px}
+</style>
+</head>
+<body>
+<header><h2>Validatore Biglietti Venaria</h2></header>
+<div class="counter">Validi: <span id="count">0</span></div>
+<div id="reader"></div>
+<div id="result">Premi 'Avvia Scanner'</div>
+<button id="startBtn">Avvia Scanner</button>
+<button id="nextBtn" style="display:none">Scansiona prossimo biglietto</button>
+<button id="resetBtn">Azzera contatore</button>
+<script src="html5-qrcode.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

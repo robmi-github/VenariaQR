@@ -1,0 +1,1 @@
+Scarica html5-qrcode.min.js e sostituisci il file segnaposto.
