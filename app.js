@@ -35,9 +35,22 @@ function validateTicket(text){
 }
 
 async function onScanSuccess(decodedText){
- if(!scanning) return;
- await stopScanner();
- validateTicket(decodedText);
+    // blocco immediato delle letture successive
+    if (!scanning) {
+        return;
+    }
+
+    scanning = false;
+
+    resultDiv.textContent = "Verifica in corso...";
+
+    try {
+        await html5QrCode.stop();
+    } catch (e) {
+        console.error(e);
+    }
+
+    validateTicket(decodedText);
 }
 
 async function startScanner(){
